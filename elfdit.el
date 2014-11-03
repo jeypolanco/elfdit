@@ -37,18 +37,10 @@
       (setq num (1+ num)))
     result))
 
-(define-derived-mode
-  elfdit-mode tabulated-list-mode "elfdit"
+(define-derived-mode elfdit-mode tabulated-list-mode "elfdit"
   "Major mode for seeing elf header fields and corresponding values."
   (setq tabulated-list-entries 'header-values/table-entries)
-  ;; the number of fields in the elf header is 20 not 2
   (setq tabulated-list-format [("Fields" 20 nil) ("Values" 20 nil)])
-  (tabulated-list-init-header))
+  (tabulated-list-init-header)
+  (tabulated-list-print))
 
-(defun list-elf-header ()
-  "Display elf-header-list'."
-  (interactive)
-  (with-current-buffer (get-buffer-create "*elf-header*")
-    (elfdit-mode)
-    (tabulated-list-print)
-    (switch-to-buffer (current-buffer))))
